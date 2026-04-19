@@ -1,13 +1,10 @@
-# import google.generativeai as genai
 from groq import Groq
 import os
 from dotenv import load_dotenv
 
-# genai.configure(api_key="AIzaSyDx4OkBUCve2VdpB-sn0sN4sWD3xIFQpiU")
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-# model = genai.GenerativeModel("gemini-2.0-flash")  # fast and free tier available
 
-# 
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 
 def get_llm_response(user_data, shap_explanation, prediction):
     # same prompt as before
@@ -57,5 +54,5 @@ def get_llm_response(user_data, shap_explanation, prediction):
         max_tokens=400
     )
 
-    # response = model.generate_content(prompt)
+    
     return response.choices[0].message.content
