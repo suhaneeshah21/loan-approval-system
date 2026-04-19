@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+.env
+venv/
+loanapprenv/
+
+# Node
+client/node_modules/
+client/.env
+
+# Data (optional, remove if you want to push it)
+data/
