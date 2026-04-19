@@ -91,7 +91,7 @@ export default function App() {
 
     setLoading(true);
     try {
-      const res = await fetch("https://loan-approval-system-backend.onrender.com", {
+      const res = await fetch("https://loan-approval-system-backend.onrender.com/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
