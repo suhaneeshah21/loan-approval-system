@@ -49,9 +49,9 @@ def get_llm_response(user_data, shap_explanation, prediction):
     """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",  # free and powerful
+        model="openai/gpt-oss-120b",  # free and powerful
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=400
+        max_tokens=1000
     )
 
     
