@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from model import predict_and_explain
 from groqllm import get_llm_response
+import traceback
+from fastapi import HTTPException
 
 app=FastAPI()
 
@@ -28,15 +30,23 @@ class LoanApplication(BaseModel):
 
 
 @app.post("/predict")
-async def predict(application:LoanApplication):
-    input_data=application.model_dump()
+async def predict(application: LoanApplication):
+    input_data = application.model_dump()
 
-    prediction,shap_explanation=predict_and_explain(input_data)
-    llm_response=get_llm_response(input_data,shap_explanation,prediction)
+    try:
+        prediction, shap_explanation = predict_and_explain(input_data)
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"model error: {type(e).__name__}: {e}")
 
-    return{
+    try:
+        llm_response = get_llm_response(input_data, shap_explanation, prediction)
+    except Exception as e:
+        traceback.print_exc()
+        llm_response = f"Explanation unavailable ({type(e).__name__})"
+
+    return {
         "prediction": prediction,
         "shap_explanation": shap_explanation,
-        "llm_response": llm_response 
+        "llm_response": llm_response,
     }
-
