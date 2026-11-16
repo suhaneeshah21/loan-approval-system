@@ -56,6 +56,7 @@ function ResultSection({ label, children }) {
 }
 
 export default function App() {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
   const [form, setForm] = useState(INITIAL_FORM);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -91,7 +92,7 @@ export default function App() {
 
     setLoading(true);
     try {
-      const res = await fetch("https://loan-approval-system-backend.onrender.com/predict", {
+      const res = await fetch(`${API_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
