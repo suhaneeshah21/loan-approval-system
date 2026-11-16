@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect,useState } from "react";
 
 const INITIAL_FORM = {
   no_of_dependents: 0,
@@ -61,6 +61,12 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
+
+
+  useEffect(() => {
+    fetch(`${API_URL}/health`).catch(() => {});
+  }, [API_URL]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

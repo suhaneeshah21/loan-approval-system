@@ -50,3 +50,7 @@ async def predict(application: LoanApplication):
         "shap_explanation": shap_explanation,
         "llm_response": llm_response,
     }
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
